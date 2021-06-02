@@ -8,10 +8,11 @@
 
     <!-- CSS and Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/PolyBUS-WEB.css">
 
     <!-- Compiled Javascript -->
     <script type="test/javascript" src="assets/js/bootstrap/bootstrap.min.js"></script>
-    <script src="assets/js/logic.js"></script>
+    <script src="assets/js/plotly/plotly.min.js"></script>
 </head>
 
 <body>
@@ -23,34 +24,40 @@
             </div>
         </nav>
     </header>
+
     <!-- Body -->
     <body class="bg-secondary">
         <div class="container-fluid">
-            <p>Hello!</p>
+
+            <div id="graph" class="container-fluid"></div>
+
             <p>L'état des interrupteurs est : </p>
             <b><p id="switches">inconnu</p></b>
 
             <button type="button" class="btn btn-primary">Test</button>
         </div>
-        
+
     </body>
+
     <footer>
         <nav class="navbar navbar-expand-lg fixed-bottom">
             <div>
-                <div style="text-align:center">
-                    <p>
-                        <p><b>PolyBus</b> - Équipe #5: Emmanuel Bolduc, Charles Lévesque-Matte, Olivier Lortie, François Marcoux, Steve Pharand et Zachary Thuotte
-                        <br><b>Université de Sherbrooke - 2021</b></p>
-                    </p>
-                </div>
                 <div style="text-align:right">
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
                         <button type="button" class="btn btn-light">Light theme</button>
                     </a>
+                </div>
+                <div style="text-align:center" class="border border-primary">
+                    <p>
+                        <p><b>PolyBus</b> - Équipe #5: Emmanuel Bolduc (BOLE2202), Charles Lévesque-Matte (LEVC2315), Olivier Lortie (LORO0801), François Marcoux (MARF2910), Steve Pharand (PHAS2401) et Zachary Thuotte (THUZ3401)
+                        <br><b>Université de Sherbrooke - S4 E2021 GI</b></p>
+                    </p>
                 </div>
             </div>
         </nav>
     </footer>
+
+    <script src="assets/js/logic.js"></script>
 
 </body>
 
