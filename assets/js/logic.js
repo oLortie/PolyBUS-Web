@@ -23,16 +23,16 @@ function createGraph(){
     var layout = {
         title: 'Respiration de l\'individu',
         xaxis: {
-          title: 't (s)',
+          title: 't (ms)',
           showgrid: true
         },
         yaxis: {
-          title: 'VOLUME POUMONS? (A CHANGER)',
+          title: 'Volume Air Poumon',
           showline: false
         }
       };
 
-    Plotly.newPlot(graphDiv, [{y:[], type: 'line', line:{shape: 'spline'}}], layout);
+    Plotly.newPlot(graphDiv, [{y:[], type: 'scatter'}], layout);
 }
 
 function extendGraph(valueY){
@@ -40,9 +40,31 @@ function extendGraph(valueY){
     Plotly.extendTraces(graphDiv, {y:[[valueY]]}, [0]);
 }
 
+function update_respiration()
+{
+    const http = new XMLHttpRequest();
+    const url='http://192.168.1.10/cmd/respiration';
+
+    http.open("GET", url);
+    http.send();
+    var resp_obj;
+    var respi;
+    
+    http.onreadystatechange = function() 
+    {
+        console.log("Respiration voltage: " + http.responseText);
+        document.getElementById("respiration").innerHTML = http.responseText;
+        resp_obj = JSON.parse(http.responseText);
+        respi = resp_obj.respiration;
+        Plotly.extendTraces(graphDiv, {y:[[respi]]}, [0]);
+        console.log(respi)
+    }
+    
+}
+
 //----------------------------------------------------------------
 
 createGraph();
-setInterval(function() { extendGraph(Math.random()); }, 100);
+setInterval(function() { update_respiration(); }, 100);
 // setInterval( function() { funca(10,3); }, 500 );
 
