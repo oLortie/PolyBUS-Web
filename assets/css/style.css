@@ -2,7 +2,7 @@ body{
     margin:0;
     padding:0;
     font-family:sans-serif;
-    background: url(back.png);
+    background: url(../back.png);
     background-size: cover;
 }
 
@@ -43,7 +43,7 @@ body{
     border-color:#120ee2f5;
 }
 
-.box input[type="submit"]{
+.box input[type="button"]{
     border:0;
     background: none;
     display:block;
