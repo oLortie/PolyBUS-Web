@@ -12,6 +12,11 @@
     text-decoration: none;
   }
 
+.navbar button{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .navbar input[type=text] {
     float: right;
     padding: 6px;
