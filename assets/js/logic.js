@@ -116,6 +116,8 @@ function createGraphZ(){
     Plotly.newPlot(graph_Z, [{y:[], type: 'scatter'}], layout);
 }
 
+
+
 //----------------------------------------------------------------
 
 createGraphRespiration();
@@ -125,4 +127,3 @@ createGraphZ();
 
 setInterval(function() { update_respiration(); }, 100);
 // setInterval( function() { funca(10,3); }, 500 );
-

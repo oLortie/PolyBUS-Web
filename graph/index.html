@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="../assets/css/PolyBUS-WEB.css">
 
     <!-- Compiled Javascript -->
-    <script type="test/javascript" src="../assets/js/bootstrap/bootstrap.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap/bootstrap.min.js"></script>
     <script src="../assets/js/plotly/plotly.min.js"></script>
-</head>
+    </head>
 
 <body>
     <!-- Header -->
@@ -30,15 +31,15 @@
                         <a class="nav-link" href="#">Accueil <span class="sr-only"></span></a>
                     </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Créer un profil</a>
+                  <a class="nav-link" onclick="createSuspect()" href="#">Créer un profil</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Historique
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Dernier suspect</a>
-                    <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Dernier suspect</a>
+                        <div class="dropdown-divider"></div>
                     </div>
                 </li>
                 </ul>  
@@ -67,8 +68,39 @@
         <div id="InformationClient" class="container-fluid">
             <p>Respiration du suspect : </p>
             <b><p id="respiration">inconnu</p></b>
-
         </div>
+        
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content modal-lg">
+                <span class="close" onclick=closeModal()>&times;</span>
+                <form>
+                    <label for="fname">Prénom</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Prénom..">
+                
+                    <label for="lname">Nom</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Nom..">
+
+                    <label for="bday">Date de naissance</label>
+                    <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
+
+                    <label for="caseNum">No de dossier</label>
+                    <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
+                
+                    <label for="gender">Genre</label>
+                    <select id="gender" name="gender">
+                    <option value="wamen">Féminin</option>
+                    <option value="men">Masculin</option>
+                    <option value="None">N/A</option>
+                    </select>
+                
+                    <input style="text-align:center" type="submit" value="Créer">
+                </form>
+            </div>
+        </div>
+     
     </body>
 
     <footer>
@@ -89,5 +121,6 @@
 
 </body>
 <!-- Javascript external file -->
+<script src="../assets/js/create.js"></script>
 <script src="../assets/js/logic.js"></script>
 </html>
