@@ -72,32 +72,37 @@
         
         <!-- The Modal -->
         <div id="myModal" class="modal">
-
             <!-- Modal content -->
             <div class="modal-content modal-lg">
-                <span class="close" onclick=closeModal()>&times;</span>
-                <form>
-                    <label for="fname">Prénom</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Prénom..">
-                
-                    <label for="lname">Nom</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Nom..">
+                <div class="modal-header">
+                    <h2>Création du dossier</h2>
+                    <span class="close" onclick=closeModal()>&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="fname">Prénom</label>
+                        <input type="text" id="fname" name="firstname" placeholder="Prénom..">
+                    
+                        <label for="lname">Nom</label>
+                        <input type="text" id="lname" name="lastname" placeholder="Nom..">
 
-                    <label for="bday">Date de naissance</label>
-                    <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
+                        <label for="bday">Date de naissance</label>
+                        <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
 
-                    <label for="caseNum">No de dossier</label>
-                    <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
-                
-                    <label for="gender">Genre</label>
-                    <select id="gender" name="gender">
-                    <option value="wamen">Féminin</option>
-                    <option value="men">Masculin</option>
-                    <option value="None">N/A</option>
-                    </select>
-                
-                    <input style="text-align:center" type="submit" value="Créer">
-                </form>
+                        <label for="caseNum">No de dossier</label>
+                        <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
+                    
+                        <label for="gender">Genre</label>
+                        <select id="gender" name="gender">
+                        <option value="wamen">Féminin</option>
+                        <option value="men">Masculin</option>
+                        <option value="None">N/A</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-secondary" type="submit">Créer</button>
+                </div>  
             </div>
         </div>
      
