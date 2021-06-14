@@ -185,9 +185,14 @@ function update_pression(){
 //----------------------------------------------------------------------------------------------------------------------------
 
 createGraphRespiration();
-createGraphX();
-createGraphY();
-createGraphZ();
+createGraphPerspiration();
+createGraphPouls();
+createGraphPression();
 
 setInterval(function() { update_respiration(); }, 100);
+setInterval(function() { update_perspiration(); }, 100);
+setInterval(function() { update_pouls(); }, 100);
+setInterval(function() { update_pression(); }, 100);
+
+
 // setInterval( function() { funca(10,3); }, 500 );
