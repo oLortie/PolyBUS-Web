@@ -36,7 +36,7 @@ function createGraphRespiration(){
     Plotly.newPlot(graph_respiration, [{y:[], type: 'scatter'}], layout);
 }
 
-function extendGraph(valueY){
+function extendGraphRespiration(valueY){
     Plotly.extendTraces(graph_respiration, {y:[[valueY]]}, [0]);
 }
 
@@ -60,65 +60,129 @@ function update_respiration(){
 }
 
 //----------------------------------------------------------------------------------------------------------------------------
-// Function for Graph X
-var graph_X = document.getElementById('graph_X');
+// Function for perspiration Graph 
+var graph_perspiration = document.getElementById('graph_perspiration');
 
-function createGraphX(){
+function createGraphPerspiration(){
     var layout = {
-        title: 'X',
+        title: 'Perspiration de l\'individu',
         xaxis: {
           title: 't (ms)',
           showgrid: true
         },
         yaxis: {
-          title: 'Volume Air Poumon',
+          title: 'Conductance sur la peau',
           showline: false
         }
       };
-    Plotly.newPlot(graph_X, [{y:[], type: 'scatter'}], layout);
+    Plotly.newPlot(graph_perspiration, [{y:[], type: 'scatter'}], layout);
 }
 
+function extendGraphPerspiration(valueY){
+  Plotly.extendTraces(graph_perspiration, {y:[[valueY]]}, [0]);
+}
+
+function update_perspiration(){
+  const http = new XMLHttpRequest();
+  const url='http://192.168.1.10/cmd/perspiration';
+
+  http.open("GET", url);
+  http.send();
+  var persp_obj;
+  var perspi;
+  
+  http.onreadystatechange = function() {
+      console.log("Perspiration voltage: " + http.responseText);
+      document.getElementById("perspiration").innerHTML = http.responseText;
+      persp_obj = JSON.parse(http.responseText);
+      perspi = resp_obj.perspiration;
+      Plotly.extendTraces(graph_perspiration, {y:[[perspi]]}, [0]);
+      console.log(perspi)
+  }
+}
 //----------------------------------------------------------------------------------------------------------------------------
-// Function for Graph Y
-var graph_Y = document.getElementById('graph_Y');
+// Function for pulse graph
+var graph_pouls = document.getElementById('graph_pouls');
 
-function createGraphY(){
+function createGraphPouls(){
     var layout = {
-        title: 'Y',
+        title: 'Pouls de l\'individu',
         xaxis: {
           title: 't (ms)',
           showgrid: true
         },
         yaxis: {
-          title: 'Volume Air Poumon',
+          title: 'Battements de coeur par minute',
           showline: false
         }
       };
-    Plotly.newPlot(graph_Y, [{y:[], type: 'scatter'}], layout);
+    Plotly.newPlot(graph_pouls, [{y:[], type: 'scatter'}], layout);
 }
 
+function extendGraphPouls(valueY){
+  Plotly.extendTraces(graph_pouls, {y:[[valueY]]}, [0]);
+}
+
+function update_pouls(){
+  const http = new XMLHttpRequest();
+  const url='http://192.168.1.10/cmd/pouls';
+
+  http.open("GET", url);
+  http.send();
+  var pouls_obj;
+  var pouls;
+  
+  http.onreadystatechange = function() {
+      console.log("Pouls voltage: " + http.responseText);
+      document.getElementById("pouls").innerHTML = http.responseText;
+      pouls_obj = JSON.parse(http.responseText);
+      pouls = pouls_obj.perspiration;
+      Plotly.extendTraces(graph_pouls, {y:[[pouls]]}, [0]);
+      console.log(pouls)
+  }
+}
 //----------------------------------------------------------------------------------------------------------------------------
-// Function for Graph Z
-var graph_Z = document.getElementById('graph_Z');
+// Function for pressure graph
+var graph_pression = document.getElementById('graph_pression');
 
-function createGraphZ(){
+function createGraphPression(){
     var layout = {
-        title: 'Z',
+        title: 'Pression sanguine de l\'individu',
         xaxis: {
           title: 't (ms)',
           showgrid: true
         },
         yaxis: {
-          title: 'Volume Air Poumon',
+          title: 'pression en millimètres de mercure',
           showline: false
         }
       };
-    Plotly.newPlot(graph_Z, [{y:[], type: 'scatter'}], layout);
+    Plotly.newPlot(graph_pression, [{y:[], type: 'scatter'}], layout);
 }
 
+function extendGraphPression(valueY){
+  Plotly.extendTraces(graph_pression, {y:[[valueY]]}, [0]);
+}
 
+function update_pression(){
+  const http = new XMLHttpRequest();
+  const url='http://192.168.1.10/cmd/pression';
 
-//----------------------------------------------------------------
+  http.open("GET", url);
+  http.send();
+  var press_obj;
+  var press;
+  
+  http.onreadystatechange = function() {
+      console.log("Pression voltage: " + http.responseText);
+      document.getElementById("pression").innerHTML = http.responseText;
+      press_obj = JSON.parse(http.responseText);
+      press = press_obj.perspiration;
+      Plotly.extendTraces(graph_pression, {y:[[press]]}, [0]);
+      console.log(press)
+  }
+}
+//----------------------------------------------------------------------------------------------------------------------------
 
 createGraphRespiration();
 createGraphX();
