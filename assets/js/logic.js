@@ -93,7 +93,7 @@ function update_perspiration(){
   
   http.onreadystatechange = function() {
       console.log("Perspiration voltage: " + http.responseText);
-      document.getElementById("perspiration").innerHTML = http.responseText;
+      //document.getElementById("perspiration").innerHTML = http.responseText;
       persp_obj = JSON.parse(http.responseText);
       perspi = resp_obj.perspiration;
       Plotly.extendTraces(graph_perspiration, {y:[[perspi]]}, [0]);
@@ -134,9 +134,9 @@ function update_pouls(){
   
   http.onreadystatechange = function() {
       console.log("Pouls voltage: " + http.responseText);
-      document.getElementById("pouls").innerHTML = http.responseText;
+      //document.getElementById("pouls").innerHTML = http.responseText;
       pouls_obj = JSON.parse(http.responseText);
-      pouls = pouls_obj.perspiration;
+      pouls = pouls_obj.pouls;
       Plotly.extendTraces(graph_pouls, {y:[[pouls]]}, [0]);
       console.log(pouls)
   }
@@ -175,24 +175,49 @@ function update_pression(){
   
   http.onreadystatechange = function() {
       console.log("Pression voltage: " + http.responseText);
-      document.getElementById("pression").innerHTML = http.responseText;
+      //document.getElementById("pression").innerHTML = http.responseText;
       press_obj = JSON.parse(http.responseText);
-      press = press_obj.perspiration;
+      press = press_obj.pression;
       Plotly.extendTraces(graph_pression, {y:[[press]]}, [0]);
       console.log(press)
   }
 }
-//----------------------------------------------------------------------------------------------------------------------------
+
+function updateAllGraphs() {
+    const http = new XMLHttpRequest();
+    const url='http://192.168.1.10/cmd/rawData';
+
+    http.open("GET", url);
+    http.send();
+    var rawData_obj;
+    var respiration;
+    var perspiration;
+    var pouls;
+    var pression;
+
+    http.onreadystatechange = function() {
+        console.log("raw data : " + http.responseText);
+        rawData_obj = JSON.parse(http.responseText);
+        respiration = rawData_obj.respiration;
+        perspiration = rawData_obj.perspiration;
+        pouls = rawData_obj.pouls;
+        pression = rawData_obj.pression;
+        Plotly.extendTraces(graph_respiration, {y:[[respiration]]}, [0]);
+        Plotly.extendTraces(graph_perspiration, {y:[[perspiration]]}, [0]);
+        Plotly.extendTraces(graph_pouls, {y:[[pouls]]}, [0]);
+        Plotly.extendTraces(graph_pression, {y:[[pression]]}, [0]);
+    }
+}
+//--------------------------------------------------------------s--------------------------------------------------------------
 
 createGraphRespiration();
 createGraphPerspiration();
 createGraphPouls();
 createGraphPression();
 
-setInterval(function() { update_respiration(); }, 100);
-setInterval(function() { update_perspiration(); }, 100);
-setInterval(function() { update_pouls(); }, 100);
-setInterval(function() { update_pression(); }, 100);
+setInterval(updateAllGraphs, 10);
 
-
-// setInterval( function() { funca(10,3); }, 500 );
+/*setInterval(update_respiration, 100);
+setTimeout(setInterval(update_perspiration, 100), 10);
+setTimeout(setInterval(update_pouls, 100), 20);
+setTimeout(setInterval(update_pression, 100), 30);*/
