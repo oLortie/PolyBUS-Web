@@ -1,2 +1,2 @@
 # PolyBUS-Web
-This repository contains the files necessary for the website that will be hosted on the Zybo board.
+This repository contains the necessary files for the PolyBUS website that will be hosted on the Zybo board.
