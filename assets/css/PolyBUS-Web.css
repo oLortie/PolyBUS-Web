@@ -3,6 +3,32 @@
     width: 100%;
 } */
 
+/*.sidebar {
+  border-style:solid;
+}*/
+
+#suspect_info_sidebar {
+  min-width: 400px;
+  max-width: 400px;
+  height: auto;
+  border-style: solid;
+  margin: 10px;
+}
+
+#control_sidebar {
+  min-width: 400px;
+  max-width: 400px;
+  height: auto;
+  border-style: solid;
+  margin: 10px;
+}
+
+#sidebar {
+  min-width: 400px;
+  max-width: 400px;
+  margin: 10px;
+}
+
 .navbar a {
     float: left;
     font-size: 16px;
