@@ -81,3 +81,47 @@ function sendPerspirationSelect(selection) {
     http.open("POST", url);
     http.send();
 }
+
+//Paramètres extraits des signaux
+var parameter_interval = 100;
+
+var bpm_label = document.getElementById("sidebar_bpm_label");
+var respiration_label = document.getElementById("sidebar_respiration_label");
+var systolic_label = document.getElementById("sidebar_systolic_label");
+var diastolic_label = document.getElementById("sidebar_diastolic_label");
+var perspiration_label = document.getElementById("sidebar_perspiration_label");
+var lie_label = document.getElementById("sidebar_lie_label");
+
+function updateAllParameters() {
+    const http = new XMLHttpRequest();
+    const url='http://192.168.1.10/cmd/parameters';
+
+    http.open("GET", url);
+    http.send();
+    var parameters_obj;
+
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200 && http.responseText)
+      {
+        parameters_obj = JSON.parse(http.responseText);
+
+        bpm_label.innerHTML = parameters_obj.bpm + " BPM";
+        respiration_label.innerHTML = parameters_obj.respiration + " Hz";
+        systolic_label.innerHTML = parameters_obj.systolic + " mmHg";
+        diastolic_label.innerHTML = parameters_obj.diastolic + " mmHg";
+        perspiration_label.innerHTML = parameters_obj.perspiration + " V";
+
+        if (parameters_obj.lie == 1) 
+        {
+            lie_label.text = "OUI";
+        }
+        else
+        {
+            lie_label.text = "NON";
+        }
+        
+      }
+    }
+}
+
+setInterval(updateAllParameters, parameter_interval);
