@@ -269,8 +269,3 @@ createGraphPouls();
 createGraphPression();
 
 setInterval(updateAllGraphs, data_interval);
-
-// setInterval(update_respiration, data_interval);
-/*setTimeout(setInterval(update_perspiration, 100), 10);
-setTimeout(setInterval(update_pouls, 100), 20);
-setTimeout(setInterval(update_pression, 100), 30);*/

@@ -19,7 +19,7 @@
 <body>
     <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">PolyBUS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -51,65 +51,155 @@
     </header>
 
     <!-- Body -->
+    <br><br><br><br>
     <body class="bg-secondary">
-        <div id="graph" class="container">
-            <div class="row">
-                <div id="graph_respiration" class="col" style="width:600px;height:450px;"></div>
-                <div class="col-sm-1"></div>
-                <div id="graph_perspiration" class="col" style="width:600px;height:450px;"></div>
-            </div><br>
-            <div class="row">
-                <div id="graph_pouls" class="col" style="width:600px;height:450px;"></div>
-                <div class="col-sm-1"></div>
-                <div id="graph_pression" class="col" style="width:600px;height:450px;"></div>
+        
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-sm-3">
+                <div class="card bg-dark text-light">
+                    <div class="card-title">
+                        <h3>Informations du suspect</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <label>Prénom : </label>
+                            <label id="sidebar_suspect_first_name_label" value=""></label>
+                        </div>
+                        <div class="form-row">
+                            <label>Nom : </label>
+                            <label id="sidebar_suspect_last_name_label" value=""></label>
+                        </div>
+                        <div class="form-row">
+                            <label>Date de naissance : </label>
+                            <label id="sidebar_suspect_birthdate_label" value=""></label>
+                        </div>
+                        <div class="form-row">
+                            <label>Numéro de dossier : </label>
+                            <label id="sidebar_suspect_number_label" value=""></label>
+                        </div>
+                        <div class="form-row">
+                            <label>Genre : </label>
+                            <label id="sidebar_suspect_gender_label" value=""></label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card bg-dark text-light">
+                    <div class="card-title">
+                        <h3>Contrôle des signaux</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <label>Fréquence cardiaque : </label>
+                            <label id="sidebar_bpm_label" value="">0 BPM</label>
+                        </div>
+                        <div class="form-row">
+                            <label>Pression systolique : </label>
+                            <label id="sidebar_systolic_label" value="">0 mmHg</label>
+                        </div>
+                        <div class="form-row">
+                            <label>Pression diastolique : </label>
+                            <label id="sidebar_diastolic_label" value="">0 mmHg</label>
+                        </div>
+                        <div class="form-row">
+                            <label>Respiration : </label>
+                            <label id="sidebar_respiration_label" value="">0 Hz</label>
+                        </div>
+                        <div class="form-row">
+                            <label>Perspiration : </label>
+                            <label id="sidebar_perspiration_label" value="">0 V</label>
+                        </div>
+                        <div class="form-row">
+                            <label>Mensonge : </label>
+                            <label id="sidebar_lie_label" value="">Non</label>
+                        </div>
+                        <div class="form-row">
+                            <label>Choix de la respiration : </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="respiration_radio" id="025Hz_radio" checked>
+                                <label class="form-check-label" for="025Hz_radio">0.25 Hz</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="respiration_radio" id="05Hz_radio">
+                                <label class="form-check-label" for="05Hz_radio">0.5 Hz</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label>Choix de la perspiration : </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="perspiration_radio" id="perspiration1_radio" checked>
+                                <label class="form-check-label" for="perspiration1_radio">Niveau 1</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="perspiration_radio" id="perspiration2_radio">
+                                <label class="form-check-label" for="perspiration2_radio">Niveau 2</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+            
+            <!-- Page Content -->
+            <div id="content" class="col-sm-9">
+                <div id="graph" class="container-fluid">
+                    <div class="row">
+                        <div id="graph_respiration" class="col" style="width:600px;height:450px;"></div>
+                        <div class="col-sm-1"></div>
+                        <div id="graph_perspiration" class="col" style="width:600px;height:450px;"></div>
+                    </div><br>
+                    <div class="row">
+                        <div id="graph_pouls" class="col" style="width:600px;height:450px;"></div>
+                        <div class="col-sm-1"></div>
+                        <div id="graph_pression" class="col" style="width:600px;height:450px;"></div>
+                    </div>
+                </div>
+                    
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content modal-lg">
+                        <div class="modal-header">
+                            <h2>Création du dossier</h2>
+                            <span class="close" onclick=closeModal()>&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <label for="fname">Prénom</label>
+                                <input type="text" id="fname" name="firstname" placeholder="Prénom..">
+                            
+                                <label for="lname">Nom</label>
+                                <input type="text" id="lname" name="lastname" placeholder="Nom..">
+        
+                                <label for="bday">Date de naissance</label>
+                                <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
+        
+                                <label for="caseNum">No de dossier</label>
+                                <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
+                            
+                                <label for="gender">Genre</label>
+                                <select id="gender" name="gender">
+                                <option value="wamen">Féminin</option>
+                                <option value="men">Masculin</option>
+                                <option value="None">N/A</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-lg btn-secondary" type="submit">Créer</button>
+                        </div>  
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div id="InformationClient" class="container-fluid">
-            <p>Respiration du suspect : </p>
-            <b><p id="respiration">inconnu</p></b>
-        </div>
-         
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content modal-lg">
-                <div class="modal-header">
-                    <h2>Création du dossier</h2>
-                    <span class="close" onclick=closeModal()>&times;</span>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <label for="fname">Prénom</label>
-                        <input type="text" id="fname" name="firstname" placeholder="Prénom..">
-                    
-                        <label for="lname">Nom</label>
-                        <input type="text" id="lname" name="lastname" placeholder="Nom..">
-
-                        <label for="bday">Date de naissance</label>
-                        <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
-
-                        <label for="caseNum">No de dossier</label>
-                        <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
-                    
-                        <label for="gender">Genre</label>
-                        <select id="gender" name="gender">
-                        <option value="wamen">Féminin</option>
-                        <option value="men">Masculin</option>
-                        <option value="None">N/A</option>
-                        </select>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-lg btn-secondary" type="submit">Créer</button>
-                </div>  
-            </div>
-        </div>
-     
+        
+        
+             
     </body>
 
     <footer>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <div class="mx-auto" style="text-align:center">
                     <p class="text-white"><b>PolyBus</b> - Équipe #5: Emmanuel Bolduc, Charles Lévesque-Matte, Olivier Lortie, François Marcoux, Steve Pharand et Zachary Thuotte
@@ -128,4 +218,5 @@
 <!-- Javascript external file -->
 <script src="../assets/js/create.js"></script>
 <script src="../assets/js/logic.js"></script>
+<script src="../assets/js/sidebar.js"></script>
 </html>
