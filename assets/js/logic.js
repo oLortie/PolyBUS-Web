@@ -53,7 +53,6 @@ function update_respiration(){
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200 && http.responseText)
       {
-        console.log("Respiration voltage: " + http.responseText);
         document.getElementById("respiration").innerHTML = http.responseText;
         resp_obj = JSON.parse(http.responseText);
         respi = resp_obj.respiration;
@@ -99,7 +98,6 @@ function update_perspiration(){
   http.onreadystatechange = function() {
     if (http.readyState == 4 && http.status == 200 && http.responseText)
     {
-      console.log("Perspiration voltage: " + http.responseText);
       //document.getElementById("perspiration").innerHTML = http.responseText;
       persp_obj = JSON.parse(http.responseText);
       perspi = resp_obj.perspiration;
@@ -143,7 +141,6 @@ function update_pouls(){
   
   if (http.readyState == 4 && http.status == 200 && http.responseText)
   {
-    console.log("Pouls voltage: " + http.responseText);
     //document.getElementById("pouls").innerHTML = http.responseText;
     pouls_obj = JSON.parse(http.responseText);
     pouls = pouls_obj.pouls;
@@ -188,7 +185,6 @@ function update_pression(){
   http.onreadystatechange = function() {
     if (http.readyState == 4 && http.status == 200 && http.responseText)
     {
-      console.log("Pression voltage: " + http.responseText);
       //document.getElementById("pression").innerHTML = http.responseText;
       press_obj = JSON.parse(http.responseText);
       press = press_obj.pression;
@@ -201,7 +197,7 @@ function update_pression(){
 //----------------------------------------------------------------------------------------------------------------------------
 //Function for graphs update
 
-var data_interval = 10; //The interval in ms between 2 data requests
+var data_interval = 100; //The interval in ms between 2 data requests
 
 //The total number of data points in each graph
 var data_count = 0;
@@ -228,19 +224,14 @@ function updateAllGraphs() {
       if (http.readyState == 4 && http.status == 200 && http.responseText)
       {
 
-        console.log("length : ", http.responseText.length);
-
         if(http.responseText.length != 0)
         {
-          console.log("raw data : " + http.responseText);
           rawData_obj = JSON.parse(http.responseText);
           respiration = rawData_obj.respiration;
           perspiration = rawData_obj.perspiration;
           pouls = rawData_obj.pouls;
           pression = rawData_obj.pression;
           data_time = rawData_obj.time;
-
-          console.log("data_time : " + data_time);
   
           Plotly.extendTraces(graph_respiration, {x: [[data_time]], y:[[respiration]]}, [0]);
           Plotly.extendTraces(graph_perspiration, {x: [[data_time]], y:[[perspiration]]}, [0]);
