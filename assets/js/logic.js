@@ -1,21 +1,4 @@
-
-// function update_switches()
-// {
-//     const http = new XMLHttpRequest();
-//     const url='http://192.168.1.10/cmd/sws';
-
-//     http.open("GET", url);
-//     http.send();
-
-//     http.onreadystatechange = function() {
-//         console.log("Switch state: " + http.responseText);
-//         document.getElementById("switches").innerHTML = http.responseText;
-//     }
-// }
-
-
-// window.setInterval(update_switches, 1000);
-
+//-------------------------------------------------------------------------------------------------------------------------------
 // general function to Post to API
 function submitForm(url, form) {
   let response = fetch(
@@ -25,6 +8,26 @@ function submitForm(url, form) {
     });
 console.log(response);
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------------------
+// Gestion du demarrage de la simulation
+var simulationState = 0;
+
+var startBtn = document.getElementById("startBtn");
+var stopBtn = document.getElementById("stopBtn");
+
+startBtn.onclick = function() {
+  simulationState = 1;
+  console.log(simulationState);
+};
+
+stopBtn.onclick = function() {
+  simulationState = 0;
+  console.log(simulationState);
+};
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Function for respiration Graph
@@ -217,6 +220,7 @@ const MAX_X_DISPLAY_RANGE = 15;
 // const MAX_X_DISPLAY_COUNT = 100 * MAX_X_DISPLAY_RANGE;
 
 function updateAllGraphs() {
+  if (simulationState == 1){
     const http = new XMLHttpRequest();
     const url='http://192.168.1.10/cmd/rawData';
 
@@ -260,6 +264,7 @@ function updateAllGraphs() {
         }
       }
     }
+  }
 }
 //----------------------------------------------------------------------------------------------------------------------------
 
