@@ -16,6 +16,7 @@
 
 // window.setInterval(update_switches, 1000);
 
+// general function to Post to API
 function submitForm(url, form) {
   let response = fetch(
     url, {

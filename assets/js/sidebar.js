@@ -1,14 +1,49 @@
+// ================================================================
+// Gestion du demarrage de la simulation
+
+const SimulationRunning = {
+    Start : 1,
+    Stop  : 0,
+}
+
+var startBtn = document.getElementById("startBtn");
+var stopBtn = document.getElementById("stopBtn");
+
+startBtn.onclick = function() {
+    sendSimulationState(SimulationRunning.Start);
+}
+
+stopBtn.onclick = function() {
+    sendSimulationState(SimulationRunning.Stop);
+}
+
+sendSimulationState = function(selection) {
+    const http = new XMLHttpRequest();
+    var url = '';
+
+    switch (selection) {
+        case SimulationRunning.Start:
+            console.log("Demarrage de la simulation");
+            url='';
+            break;
+        case SimulationRunning.Stop:
+            console.log("Arret de la simulation");
+            url='';
+            break;
+        default:
+            break;
+    }
+
+    http.open("POST", url);
+    http.send();
+}
+
+// ================================================================
+// Gestion du signal de respiration
 const RespirationSelect = {
     respi025 : 0,
     respi05  : 1, 
 }
-
-const PerspirationSelect = {
-    level1 : 0,
-    level2 : 1,
-}
-
-// Choix de la respiration
 var respiration025 = document.getElementById("025Hz_radio");
 var respiration05 = document.getElementById("05Hz_radio");
 
@@ -45,7 +80,13 @@ function sendRespirationSelect(selection) {
     http.send();
 }
 
+// ================================================================
 //Choix de la perspiration
+const PerspirationSelect = {
+    level1 : 0,
+    level2 : 1,
+}
+
 var perspiration1 = document.getElementById("perspiration1_radio");
 var perspiration2 = document.getElementById("perspiration2_radio");
 
