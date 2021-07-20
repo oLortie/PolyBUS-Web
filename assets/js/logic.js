@@ -211,7 +211,7 @@ function updateAllGraphs() {
     const http = new XMLHttpRequest();
     const url='http://192.168.1.10/cmd/rawData';
 
-    http.open("GET", url);
+    http.open("GET", url, true);
     http.send();
     var rawData_obj;
     var respiration;
@@ -239,7 +239,7 @@ function updateAllGraphs() {
           Plotly.extendTraces(graph_pression, {x: [[data_time]], y:[[pression]]}, [0]);
           data_count++;
 
-          console.log(data_count);
+          // console.log(data_count);
   
           //TODO: Fix axis title disappearing
           // if (data_count >= MAX_X_DISPLAY_COUNT) {

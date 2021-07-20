@@ -96,7 +96,7 @@ function updateAllParameters() {
     const http = new XMLHttpRequest();
     const url='http://192.168.1.10/cmd/parameters';
 
-    http.open("GET", url);
+    http.open("GET", url, true);
     http.send();
     var parameters_obj;
 
