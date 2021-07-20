@@ -137,10 +137,23 @@
                             </div>
                         </div>
                     </div>
+                </div><br>
+                <div class="card bg-dark text-light">
+                    <div class="card-title">
+                        <h3>Simulation</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <button id="startBtn" class="btn btn-outline-success btn">Démarer</button>
+                            <button id="stopBtn" class="btn btn-outline-danger btn">Arrêter</button>
+                            <button id="saveBtn" class="btn btn-outline-primary btn">Sauvegarder</button>
+                        </div>
+                        
+                    </div>
                 </div>
             </nav>
-            
-            
+    
+
             <!-- Page Content -->
             <div id="content" class="col-sm-9">
                 <div id="graph" class="container-fluid">
@@ -155,47 +168,43 @@
                         <div id="graph_pression" class="col" style="width:600px;height:450px;"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Création du dossier</h2>
+                    <span class="close" onclick=closeModal()>&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="fname">Prénom</label>
+                        <input type="text" id="fname" name="firstname" placeholder="Prénom..">
                     
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content modal-lg">
-                        <div class="modal-header">
-                            <h2>Création du dossier</h2>
-                            <span class="close" onclick=closeModal()>&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <label for="fname">Prénom</label>
-                                <input type="text" id="fname" name="firstname" placeholder="Prénom..">
-                            
-                                <label for="lname">Nom</label>
-                                <input type="text" id="lname" name="lastname" placeholder="Nom..">
-        
-                                <label for="bday">Date de naissance</label>
-                                <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
-        
-                                <label for="caseNum">No de dossier</label>
-                                <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
-                            
-                                <label for="gender">Genre</label>
-                                <select id="gender" name="gender">
-                                <option value="wamen">Féminin</option>
-                                <option value="men">Masculin</option>
-                                <option value="None">N/A</option>
-                                </select>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-lg btn-secondary" type="submit">Créer</button>
-                        </div>  
-                    </div>
+                        <label for="lname">Nom</label>
+                        <input type="text" id="lname" name="lastname" placeholder="Nom..">
+
+                        <label for="bday">Date de naissance</label>
+                        <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
+
+                        <label for="caseNum">No de dossier</label>
+                        <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
+                    
+                        <label for="gender">Genre</label>
+                        <select id="gender" name="gender">
+                        <option value="women">Féminin</option>
+                        <option value="men">Masculin</option>
+                        <option value="non-binary">N/A</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-secondary" type="submit">Créer</button>
                 </div>
             </div>
         </div>
-        
-        
-             
     </body>
 
     <footer>
