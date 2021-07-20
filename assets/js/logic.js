@@ -16,6 +16,14 @@
 
 // window.setInterval(update_switches, 1000);
 
+function submitForm(url, form) {
+  let response = fetch(
+    url, {
+        method: 'POST',
+        body: new FormData(form)
+    });
+console.log(response);
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Function for respiration Graph
