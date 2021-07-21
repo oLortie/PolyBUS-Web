@@ -20,7 +20,7 @@
     <!-- Header -->
     <header>
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">PolyBUS</a>
+            <a class="navbar-brand" href="#"><h4>PolyBUS</h4></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,30 +30,30 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Accueil <span class="sr-only"></span></a>
                     </li>
-                <li class="nav-item">
-                  <a class="nav-link" onclick="createSuspect()" href="#">Créer un profil</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Historique
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Dernier suspect</a>
-                        <div class="dropdown-divider"></div>
-                    </div>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#createModal" href="#">Créer un profil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Historique
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Dernier suspect</a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </li>
                 </ul>  
                 <form class="form-inline mr-sm-2">
                     <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
                 </form>
                 <button class="btn btn-outline-success my-2 my-sm-2" type="submit">Recherche</button>
-          </nav>
+            </div>
+        </nav>
     </header>
 
     <!-- Body -->
     <br><br><br><br>
     <body class="bg-secondary">
-        
         <div class="row">
             <!-- Sidebar -->
             <nav id="sidebar" class="col-sm-3">
@@ -137,10 +137,23 @@
                             </div>
                         </div>
                     </div>
+                </div><br>
+                <div class="card bg-dark text-light">
+                    <div class="card-title">
+                        <h3>Simulation</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <button id="startBtn" class="btn btn-outline-success btn">Démarer</button>
+                            <button id="stopBtn" class="btn btn-outline-danger btn">Arrêter</button>
+                            <button id="saveBtn" class="btn btn-outline-primary btn">Sauvegarder</button>
+                        </div>
+                        
+                    </div>
                 </div>
             </nav>
-            
-            
+    
+
             <!-- Page Content -->
             <div id="content" class="col-sm-9">
                 <div id="graph" class="container-fluid">
@@ -155,47 +168,44 @@
                         <div id="graph_pression" class="col" style="width:600px;height:450px;"></div>
                     </div>
                 </div>
-                    
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content modal-lg">
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="createModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id=NewSuspectForm name="NewSuspectForm">
                         <div class="modal-header">
-                            <h2>Création du dossier</h2>
-                            <span class="close" onclick=closeModal()>&times;</span>
+                            <h2 class="modal-title"> Création du dossier</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <label for="fname">Prénom</label>
-                                <input type="text" id="fname" name="firstname" placeholder="Prénom..">
-                            
-                                <label for="lname">Nom</label>
-                                <input type="text" id="lname" name="lastname" placeholder="Nom..">
-        
-                                <label for="bday">Date de naissance</label>
-                                <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
-        
-                                <label for="caseNum">No de dossier</label>
-                                <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
-                            
-                                <label for="gender">Genre</label>
-                                <select id="gender" name="gender">
-                                <option value="wamen">Féminin</option>
+                            <label for="fname">Prénom</label>
+                            <input type="text" id="fname" name="firstname" placeholder="Prénom..">
+                        
+                            <label for="lname">Nom</label>
+                            <input type="text" id="lname" name="lastname" placeholder="Nom..">
+
+                            <label for="bday">Date de naissance</label>
+                            <input type="text" id="bday" name="birthday" placeholder="Date de naissance..">
+
+                            <label for="caseNum">No de dossier</label>
+                            <input type="text" id="caseNum" name="caseNumber" placeholder="No de dossier..">
+                        
+                            <label for="gender">Genre</label>
+                            <select id="gender" name="gender">
+                                <option value="women">Féminin</option>
                                 <option value="men">Masculin</option>
-                                <option value="None">N/A</option>
-                                </select>
-                            </form>
+                                <option value="non-binary">N/A</option>
+                            </select>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-lg btn-secondary" type="submit">Créer</button>
-                        </div>  
-                    </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            </div>    
         </div>
-        
-        
-             
     </body>
 
     <footer>
@@ -213,7 +223,6 @@
             </div>
         </nav>
     </footer>
-
 </body>
 <!-- Javascript external file -->
 <script src="../assets/js/create.js"></script>

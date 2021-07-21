@@ -1,14 +1,26 @@
+//-------------------------------------------------------------------------------------------------------------------------------
+// Gestion du demarrage de la simulation
+var simulationState = 0;
+
+var startBtn = document.getElementById("startBtn");
+var stopBtn = document.getElementById("stopBtn");
+
+startBtn.onclick = function() {
+    simulationState = 1;
+    console.log(simulationState);
+};
+
+stopBtn.onclick = function() {
+    simulationState = 0;
+    console.log(simulationState);
+};
+
+// ================================================================
+// Gestion du signal de respiration
 const RespirationSelect = {
     respi025 : 0,
     respi05  : 1, 
 }
-
-const PerspirationSelect = {
-    level1 : 0,
-    level2 : 1,
-}
-
-// Choix de la respiration
 var respiration025 = document.getElementById("025Hz_radio");
 var respiration05 = document.getElementById("05Hz_radio");
 
@@ -45,7 +57,13 @@ function sendRespirationSelect(selection) {
     http.send();
 }
 
+// ================================================================
 //Choix de la perspiration
+const PerspirationSelect = {
+    level1 : 0,
+    level2 : 1,
+}
+
 var perspiration1 = document.getElementById("perspiration1_radio");
 var perspiration2 = document.getElementById("perspiration2_radio");
 
@@ -93,34 +111,32 @@ var perspiration_label = document.getElementById("sidebar_perspiration_label");
 var lie_label = document.getElementById("sidebar_lie_label");
 
 function updateAllParameters() {
-    const http = new XMLHttpRequest();
-    const url='http://192.168.1.10/cmd/parameters';
-
-    http.open("GET", url);
-    http.send();
-    var parameters_obj;
-
-    http.onreadystatechange = function() {
-      if (http.readyState == 4 && http.status == 200 && http.responseText)
-      {
-        parameters_obj = JSON.parse(http.responseText);
-
-        bpm_label.innerHTML = parameters_obj.bpm + " BPM";
-        respiration_label.innerHTML = parameters_obj.respiration + " Hz";
-        systolic_label.innerHTML = parameters_obj.systolic + " mmHg";
-        diastolic_label.innerHTML = parameters_obj.diastolic + " mmHg";
-        perspiration_label.innerHTML = parameters_obj.perspiration + " V";
-
-        if (parameters_obj.lie == 1) 
-        {
-            lie_label.text = "OUI";
-        }
-        else
-        {
-            lie_label.text = "NON";
-        }
+    if (simulationState == 1) {
+        const http = new XMLHttpRequest();
+        const url='http://192.168.1.10/cmd/parameters';
+    
+        http.open("GET", url, true);
+        http.send();
+        var parameters_obj;
+    
+        http.onreadystatechange = function() {
+            if (http.readyState == 4 && http.status == 200 && http.responseText) {
+                parameters_obj = JSON.parse(http.responseText);
         
-      }
+                bpm_label.innerHTML = parameters_obj.bpm + " BPM";
+                respiration_label.innerHTML = parameters_obj.respiration + " Hz";
+                systolic_label.innerHTML = parameters_obj.systolic + " mmHg";
+                diastolic_label.innerHTML = parameters_obj.diastolic + " mmHg";
+                perspiration_label.innerHTML = parameters_obj.perspiration + " V";
+        
+                if (parameters_obj.lie == 1) {
+                    lie_label.text = "OUI";
+                }
+                else {
+                    lie_label.text = "NON";
+                }
+            }
+        }
     }
 }
 

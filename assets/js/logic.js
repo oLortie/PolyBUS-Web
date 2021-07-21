@@ -1,20 +1,32 @@
-
-// function update_switches()
-// {
-//     const http = new XMLHttpRequest();
-//     const url='http://192.168.1.10/cmd/sws';
-
-//     http.open("GET", url);
-//     http.send();
-
-//     http.onreadystatechange = function() {
-//         console.log("Switch state: " + http.responseText);
-//         document.getElementById("switches").innerHTML = http.responseText;
-//     }
-// }
+//-------------------------------------------------------------------------------------------------------------------------------
+// general function to Post to API
+function submitForm(url, form) {
+  let response = fetch(
+    url, {
+        method: 'POST',
+        body: new FormData(form)
+    });
+console.log(response);
+}
 
 
-// window.setInterval(update_switches, 1000);
+//-------------------------------------------------------------------------------------------------------------------------------
+// Gestion du demarrage de la simulation
+var simulationState = 0;
+
+var startBtn = document.getElementById("startBtn");
+var stopBtn = document.getElementById("stopBtn");
+
+startBtn.onclick = function() {
+  simulationState = 1;
+  console.log(simulationState);
+};
+
+stopBtn.onclick = function() {
+  simulationState = 0;
+  console.log(simulationState);
+};
+
 
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -208,10 +220,11 @@ const MAX_X_DISPLAY_RANGE = 15;
 // const MAX_X_DISPLAY_COUNT = 100 * MAX_X_DISPLAY_RANGE;
 
 function updateAllGraphs() {
+  if (simulationState == 1){
     const http = new XMLHttpRequest();
     const url='http://192.168.1.10/cmd/rawData';
 
-    http.open("GET", url);
+    http.open("GET", url, true);
     http.send();
     var rawData_obj;
     var respiration;
@@ -239,7 +252,7 @@ function updateAllGraphs() {
           Plotly.extendTraces(graph_pression, {x: [[data_time]], y:[[pression]]}, [0]);
           data_count++;
 
-          console.log(data_count);
+          // console.log(data_count);
   
           //TODO: Fix axis title disappearing
           // if (data_count >= MAX_X_DISPLAY_COUNT) {
@@ -251,6 +264,7 @@ function updateAllGraphs() {
         }
       }
     }
+  }
 }
 //----------------------------------------------------------------------------------------------------------------------------
 
