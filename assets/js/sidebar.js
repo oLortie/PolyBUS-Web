@@ -41,7 +41,7 @@ function sendRespirationSelect(selection) {
             break;
     }
 
-    http.open("POST", url);
+    http.open("POST", url, false);
     http.send();
 }
 
@@ -78,7 +78,7 @@ function sendPerspirationSelect(selection) {
             break;
     }
 
-    http.open("POST", url);
+    http.open("POST", url, false);
     http.send();
 }
 
