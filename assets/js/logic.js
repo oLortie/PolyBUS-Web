@@ -1,20 +1,59 @@
+//-------------------------------------------------------------------------------------------------------------------------------
+// general function to Post to API
+function submitForm(url, form) {
+  let response = fetch(
+    url, {
+        method: 'POST',
+        body: new FormData(form)
+    });
+console.log(response);
+}
 
-// function update_switches()
-// {
-//     const http = new XMLHttpRequest();
-//     const url='http://192.168.1.10/cmd/sws';
+//-------------------------------------------------------------------------------------------------------------------------------
+// Barre de recherche avec typeahead
+const suspect = [];
+fetch("URL DE CHARLE")
+  .then(blob => blob.json())
+  .then(data => suspect.push(data))
 
-//     http.open("GET", url);
-//     http.send();
+function findMatches(wordToMatch, suspects) {
+  return suspects.filter(supect => {
+    const regex = new RegExp(wordToMatch, 'gi')
+    return supect.firstname.match(regex) || suspect.lastname.match(regex) || suspect.casenumber.match(regex)
+  });
+}
 
-//     http.onreadystatechange = function() {
-//         console.log("Switch state: " + http.responseText);
-//         document.getElementById("switches").innerHTML = http.responseText;
-//     }
-// }
+function displayMatches() {
+  const matchArray = findMatches(this.value, suspect)
+  const html = matchArray.map(suspect => {
+    return '<li><span class="name">${suspect.firstname} ${suspect.lastname}</span></li>';
+  }).join('');
+  suggestions.innerHTML = html;
+}
 
+const searchInput = document.getElementById("search_box");
+const suggestions = document.getElementById("search_suggestion")
 
-// window.setInterval(update_switches, 1000);
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+//-------------------------------------------------------------------------------------------------------------------------------
+// Gestion du demarrage de la simulation
+var simulationState = 0;
+
+var startBtn = document.getElementById("startBtn");
+var stopBtn = document.getElementById("stopBtn");
+
+startBtn.onclick = function() {
+  simulationState = 1;
+  console.log(simulationState);
+};
+
+stopBtn.onclick = function() {
+  simulationState = 0;
+  console.log(simulationState);
+};
+
 
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -197,7 +236,7 @@ function update_pression(){
 //----------------------------------------------------------------------------------------------------------------------------
 //Function for graphs update
 
-var data_interval = 100; //The interval in ms between 2 data requests
+var data_interval = 10; //The interval in ms between 2 data requests
 
 //The total number of data points in each graph
 var data_count = 0;
@@ -208,10 +247,11 @@ const MAX_X_DISPLAY_RANGE = 15;
 // const MAX_X_DISPLAY_COUNT = 100 * MAX_X_DISPLAY_RANGE;
 
 function updateAllGraphs() {
+  if (simulationState == 1){
     const http = new XMLHttpRequest();
     const url='http://192.168.1.10/cmd/rawData';
 
-    http.open("GET", url);
+    http.open("GET", url, true);
     http.send();
     var rawData_obj;
     var respiration;
@@ -239,7 +279,7 @@ function updateAllGraphs() {
           Plotly.extendTraces(graph_pression, {x: [[data_time]], y:[[pression]]}, [0]);
           data_count++;
 
-          console.log(data_count);
+          // console.log(data_count);
   
           //TODO: Fix axis title disappearing
           // if (data_count >= MAX_X_DISPLAY_COUNT) {
@@ -251,6 +291,9 @@ function updateAllGraphs() {
         }
       }
     }
+  } else {
+
+  }
 }
 //----------------------------------------------------------------------------------------------------------------------------
 
