@@ -1,12 +1,10 @@
 // Add new suspect on form submit
 var newSuspectForm = document.getElementById("NewSuspectForm");
-newSuspectForm.onsubmit = async (e) => {
-  console.log("marche tu?");
+
+newSuspectForm.onsubmit = async(e) => {
   e.preventDefault();
-  if (newSuspectForm.checkValidity() === false) {
-    e.stopPropagation();
-  } else {
-    await submitForm("URL de l'API", newSuspectForm);
-  }
+  var form = new FormData(newSuspectForm);
+  await console.log(JSON.stringify(form));
+  //fetch("https://localhost:44318/api/PolyBUSAPI/CreateSuspect/",{ method: 'POST', mode:'cors', body: form})
 };
 

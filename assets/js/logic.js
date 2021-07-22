@@ -1,32 +1,26 @@
-//-------------------------------------------------------------------------------------------------------------------------------
-// general function to Post to API
-function submitForm(url, form) {
-  let response = fetch(
-    url, {
-        method: 'POST',
-        body: new FormData(form)
-    });
-console.log(response);
-}
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Barre de recherche avec typeahead
-const suspect = [];
-fetch("URL DE CHARLE")
+const suspects = [];
+fetch("https://localhost:44318/api/PolyBUSAPI", {method: 'GET', mode:'cors'}) 
   .then(blob => blob.json())
-  .then(data => suspect.push(data))
+  .then(data => suspects.push(...data))
 
 function findMatches(wordToMatch, suspects) {
-  return suspects.filter(supect => {
+  return suspects.filter(suspect => {
     const regex = new RegExp(wordToMatch, 'gi')
-    return supect.firstname.match(regex) || suspect.lastname.match(regex) || suspect.casenumber.match(regex)
+    console.log(regex);
+    console.log(suspect);
+    return suspect.name.match(regex) || suspect.lastName.match(regex) || suspect.caseNumber.match(regex)
   });
 }
 
 function displayMatches() {
-  const matchArray = findMatches(this.value, suspect)
+  const matchArray = findMatches(this.value, suspects)
   const html = matchArray.map(suspect => {
-    return '<li><span class="name">${suspect.firstname} ${suspect.lastname}</span></li>';
+    return '<li><span class="name">${suspect.name} ${suspect.lastName}</span></li>';
   }).join('');
   suggestions.innerHTML = html;
 }
