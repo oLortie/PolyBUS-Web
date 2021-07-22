@@ -140,4 +140,8 @@ function updateAllParameters() {
     }
 }
 
+function setInfoSuspect() {
+
+}
+
 setInterval(updateAllParameters, parameter_interval);
