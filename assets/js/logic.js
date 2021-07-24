@@ -1,35 +1,48 @@
 
 
+var newSuspectForm = document.getElementById("NewSuspectForm");
+newSuspectForm.onsubmit = async(e) => {
+  e.preventDefault();
+  var form = new FormData(newSuspectForm);
+  console.log(JSON.stringify(form));
+  //fetch("https://localhost:44318/api/PolyBUSAPI/CreateSuspect/",{ method: 'POST', mode:'cors', body: form})
+};
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Barre de recherche avec typeahead
-const suspects = [];
-fetch("https://localhost:44318/api/PolyBUSAPI", {method: 'GET', mode:'cors'}) 
-  .then(blob => blob.json())
-  .then(data => suspects.push(...data))
 
-function findMatches(wordToMatch, suspects) {
-  return suspects.filter(suspect => {
-    const regex = new RegExp(wordToMatch, 'gi')
-    console.log(regex);
-    console.log(suspect);
-    return suspect.name.match(regex) || suspect.lastName.match(regex) || suspect.caseNumber.match(regex)
-  });
-}
+// const suspects = [];
+// fetch("https://localhost:44318/api/PolyBUSAPI", {method: 'GET', mode:'cors'}) 
+//   .then(blob => blob.json())
+//   .then(data => suspects.push(...data))
 
-function displayMatches() {
-  const matchArray = findMatches(this.value, suspects)
-  const html = matchArray.map(suspect => {
-    return '<li><span class="name">${suspect.name} ${suspect.lastName}</span></li>';
-  }).join('');
-  suggestions.innerHTML = html;
-}
 
-const searchInput = document.getElementById("search_box");
-const suggestions = document.getElementById("search_suggestion")
+// remplacer liste par suspects
+var listSuspect = [
+  { idSuspect: 'One', name: 'Jean-marc', lastName: 'tremblay'},
+  { idSuspect: 'Two', name: 'thomas', lastName: 'levac'},
+  { idSuspect: 'Three', name: 'rene', lastName: 'kakou'},
+];
 
-searchInput.addEventListener('change', displayMatches);
-searchInput.addEventListener('keyup', displayMatches);
+listSuspect.forEach(e => {
+  e.name = (e.name + " " + e.lastName)
+});
+
+
+var choixSuspect = new Choices(document.getElementById('selectSuspect'), {
+    noResultsText: 'Aucun résultat trouvé',
+    noChoicesText: 'Aucun choix possible',
+    itemSelectText: '',
+    removeItemButton: false,
+    searchPlaceholderValue:'Commencer à écrire pour rechercher'
+});
+
+choixSuspect.setChoices(
+  listSuspect,
+  'idSuspect',
+  'name',
+  false,
+);
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Gestion du demarrage de la simulation

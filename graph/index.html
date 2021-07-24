@@ -9,11 +9,13 @@
     <!-- CSS and Bootstrap -->
     <link rel="stylesheet" href="../assets/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/PolyBUS-WEB.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
     <!-- Compiled Javascript -->
     <script language="JavaScript" type="text/javascript" src="../assets/js/jquery/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="../assets/js/bootstrap/bootstrap.min.js"></script>
     <script src="../assets/js/plotly/plotly.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     </head>
 
 <body>
@@ -43,13 +45,7 @@
                         </div>
                     </li>
                 </ul>  
-                <form id="search_form" class="form-inline mr-sm-2">
-                    <input class="form-control mr-sm-2" type="text" id="search_box" placeholder="Recherche" aria-label="Search">
-                    <ul id="search_suggestion">
-
-                    </ul>
-                </form>
-                <button class="btn btn-outline-success my-2 my-sm-2" type="submit">Recherche</button>
+                <button class="btn btn-outline-success my-2 my-sm-2" type="submit">Se déconnecter</button>
             </div>
         </nav>
     </header>
@@ -60,6 +56,17 @@
         <div class="row">
             <!-- Sidebar -->
             <nav id="sidebar" class="col-sm-3">
+                <div class="card bg-dark text-light">
+                    <div class="card-title">
+                        <h3>Rechercher un suspect</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="search_form" class="form-inline col text-body">
+                            <select id="selectSuspect" class="form-control text-body">
+                            </select>
+                        </form>
+                    </div>
+                </div> <br>
                 <div class="card bg-dark text-light">
                     <div class="card-title">
                         <h3>Informations du suspect</h3>
@@ -177,7 +184,7 @@
         <div class="modal fade" id="createModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form id=NewSuspectForm name="NewSuspectForm">
+                    <form id="NewSuspectForm" name="NewSuspectForm">
                         <div class="modal-header">
                             <h2 class="modal-title"> Création du dossier</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

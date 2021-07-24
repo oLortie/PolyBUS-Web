@@ -1,4 +1,23 @@
 //-------------------------------------------------------------------------------------------------------------------------------
+// Gestion des info du suspect
+
+var selectSuspect = document.getElementById("selectSuspect");
+selectSuspect.onselect = function() {
+    console.log("function");
+    id = selectSuspect.value;
+    const suspect = [];
+    fetch("URL pour get by ID", {method: 'GET', mode:'cors'}) 
+      .then(blob => blob.json())
+      .then(data => suspect.push(...data))
+    
+    document.getElementById("sidebar_suspect_first_name_label").innerHTML = suspect.name
+    document.getElementById("sidebar_suspect_last_name_label").innerHTML = suspect.lastname
+    document.getElementById("sidebar_suspect_birthdate_label").innerHTML = suspect.birthdate
+    document.getElementById("sidebar_suspect_number_label").innerHTML = suspect.caseNumber
+    document.getElementById("sidebar_suspect_gender_label").innerHTML = suspect.gender
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------
 // Gestion du demarrage de la simulation
 var simulationState = 0;
 
