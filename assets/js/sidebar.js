@@ -124,10 +124,9 @@ var parameter_interval = 100;
 
 var bpm_label = document.getElementById("sidebar_bpm_label");
 var respiration_label = document.getElementById("sidebar_respiration_label");
-var systolic_label = document.getElementById("sidebar_systolic_label");
-var diastolic_label = document.getElementById("sidebar_diastolic_label");
+var pressure_label = document.getElementById("sidebar_pressure_label");
 var perspiration_label = document.getElementById("sidebar_perspiration_label");
-var lie_label = document.getElementById("sidebar_lie_label");
+var certitude_label = document.getElementById("sidebar_certitude_label");
 
 function updateAllParameters() {
     if (simulationState == 1) {
@@ -144,16 +143,9 @@ function updateAllParameters() {
         
                 bpm_label.innerHTML = parameters_obj.bpm + " BPM";
                 respiration_label.innerHTML = parameters_obj.respiration + " Hz";
-                systolic_label.innerHTML = parameters_obj.systolic + " mmHg";
-                diastolic_label.innerHTML = parameters_obj.diastolic + " mmHg";
+                pressure_label.innerHTML = parameters_obj.bloodPressure + " mmHg";
                 perspiration_label.innerHTML = parameters_obj.perspiration + " V";
-        
-                if (parameters_obj.lie == 1) {
-                    lie_label.text = "OUI";
-                }
-                else {
-                    lie_label.text = "NON";
-                }
+                certitude_label.innerHTML = parameters_obj.certitude + " %";
             }
         }
     }

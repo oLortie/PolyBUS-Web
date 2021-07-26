@@ -243,7 +243,7 @@ function update_pression(){
 //----------------------------------------------------------------------------------------------------------------------------
 //Function for graphs update
 
-var data_interval = 10; //The interval in ms between 2 data requests
+var data_interval = 50; //The interval in ms between 2 data requests
 
 //The total number of data points in each graph
 var data_count = 0;
