@@ -3,46 +3,63 @@
 var newSuspectForm = document.getElementById("NewSuspectForm");
 newSuspectForm.onsubmit = async(e) => {
   e.preventDefault();
-  var form = new FormData(newSuspectForm);
-  console.log(JSON.stringify(form));
-  //fetch("https://localhost:44318/api/PolyBUSAPI/CreateSuspect/",{ method: 'POST', mode:'cors', body: form})
+  var name = document.getElementById("create_fname").value;
+  var lastname = document.getElementById("create_lname").value;
+  var birthdate = document.getElementById("create_bday").value;
+  var casenumber = document.getElementById("create_caseNum").value;
+  var gender = document.getElementById("create_gender").value;
+
+  const data = {name: name, lastName: lastname, Gender: gender, Birthdate: birthdate, CaseNumber: casenumber};
+  
+
+  console.log(data);
+  await fetch("https://localhost:44318/api/PolyBUSAPI/CreateSuspect/",{ method: 'POST', headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }, mode:'cors', body: JSON.stringify(data)});
+  location.reload();
 };
+
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Barre de recherche avec typeahead
 
-// const suspects = [];
-// fetch("https://localhost:44318/api/PolyBUSAPI", {method: 'GET', mode:'cors'}) 
-//   .then(blob => blob.json())
-//   .then(data => suspects.push(...data))
+fetch("https://localhost:44318/api/PolyBUSAPI", {method: 'GET', mode:'cors'}) 
+  .then(blob => blob.json())
+  .then(data => {
+      data.forEach(e => {
+       e.name = (e.name + " " + e.lastName)
+      });
+      //console.log(data);
+      var choixSuspect = new Choices(document.getElementById('selectSuspect'), {
+        noResultsText: 'Aucun résultat trouvé',
+        noChoicesText: 'Aucun choix possible',
+        itemSelectText: '',
+        removeItemButton: false,
+        searchPlaceholderValue:'Commencer à écrire pour rechercher'
+    });
+    
+    choixSuspect.setChoices(
+      data,
+      'caseNumber',
+      'name',
+      false,
+    );
+  })
 
 
 // remplacer liste par suspects
-var listSuspect = [
-  { idSuspect: 'One', name: 'Jean-marc', lastName: 'tremblay'},
-  { idSuspect: 'Two', name: 'thomas', lastName: 'levac'},
-  { idSuspect: 'Three', name: 'rene', lastName: 'kakou'},
-];
-
-listSuspect.forEach(e => {
-  e.name = (e.name + " " + e.lastName)
-});
+// var listSuspect = [
+//   { idSuspect: 'One', name: 'Jean-marc', lastName: 'tremblay'},
+//   { idSuspect: 'Two', name: 'thomas', lastName: 'levac'},
+//   { idSuspect: 'Three', name: 'rene', lastName: 'kakou'},
+//   { idSuspect: 'Four', name: 'Orloge', lastName: 'Simard'},
+// ];
 
 
-var choixSuspect = new Choices(document.getElementById('selectSuspect'), {
-    noResultsText: 'Aucun résultat trouvé',
-    noChoicesText: 'Aucun choix possible',
-    itemSelectText: '',
-    removeItemButton: false,
-    searchPlaceholderValue:'Commencer à écrire pour rechercher'
-});
 
-choixSuspect.setChoices(
-  listSuspect,
-  'idSuspect',
-  'name',
-  false,
-);
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------
 // Gestion du demarrage de la simulation

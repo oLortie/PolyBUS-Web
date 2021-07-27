@@ -62,7 +62,7 @@
                     </div>
                     <div class="card-body">
                         <form id="search_form" class="form-inline col text-body">
-                            <select id="selectSuspect" class="form-control text-body">
+                            <select id="selectSuspect" class="form-control text-body" onselect=setInfoSuspect(value)>
                             </select>
                         </form>
                     </div>
@@ -200,9 +200,9 @@
                         
                             <label for="create_gender">Genre</label>
                             <select id="create_gender" name="gender">
-                                <option value="women">Féminin</option>
-                                <option value="men">Masculin</option>
-                                <option value="non-binary">N/A</option>
+                                <option value="w">Féminin</option>
+                                <option value="m">Masculin</option>
+                                <option value="n">N/A</option>
                             </select>
                         </div>
                         <div class="modal-footer">

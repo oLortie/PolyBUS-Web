@@ -151,8 +151,17 @@ function updateAllParameters() {
     }
 }
 
-function setInfoSuspect() {
-
+function setInfoSuspect(caseNumber) {
+    console.log("Allo les tchoins!")
+    fetch("https://localhost:44318/api/PolyBUSAPI/caseNumber?caseNumber=" + caseNumber, {method: 'GET', mode:'cors'}) 
+        .then(blob => blob.json())
+        .then(data => {
+            document.getElementById("sidebar_suspect_first_name_label").innerHTML = data.name;
+            document.getElementById("sidebar_suspect_last_name_label").innerHTML = data.lastName;
+            document.getElementById("sidebar_suspect_birthdate_label").innerHTML = data.Birthdate;
+            document.getElementById("sidebar_suspect_number_label").innerHTML = data.caseNumber;
+            document.getElementById("sidebar_suspect_gender_label").innerHTML = data.Gender;            
+         });
 }
 
 setInterval(updateAllParameters, parameter_interval);
