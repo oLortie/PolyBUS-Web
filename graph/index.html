@@ -40,7 +40,7 @@
                         Historique
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#dataModal" href="#">Dernière fiche</a>
+                            <a id="dataHistorique" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#dataModal" href="#">Dernière fiche</a>
                             <div class="dropdown-divider"></div>
                         </div>
                     </li>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="card-body">
                         <form id="search_form" class="form-inline col text-body">
-                            <select id="selectSuspect" class="form-control text-body" onselect=setInfoSuspect(value)>
+                            <select id="selectSuspect" class="form-control text-body" >
                             </select>
                         </form>
                     </div>
@@ -101,23 +101,23 @@
                     </div>
                     <div class="card-body">
                         <div class="form-row">
-                            <label>Fréquence cardiaque : </label>
+                            <label>Fréquence cardiaque(BPM) : </label>
                             <label id="sidebar_bpm_label" value="">0 BPM</label>
                         </div>
                         <div class="form-row">
-                            <label>Pression sanguine : </label>
+                            <label>Pression sanguine(mmhg) : </label>
                             <label id="sidebar_pressure_label" value="">0 mmHg</label>
                         </div>
                         <div class="form-row">
-                            <label>Respiration : </label>
+                            <label>Respiration(Hz) : </label>
                             <label id="sidebar_respiration_label" value="">0 Hz</label>
                         </div>
                         <div class="form-row">
-                            <label>Perspiration : </label>
+                            <label>Perspiration(V) : </label>
                             <label id="sidebar_perspiration_label" value="">0 V</label>
                         </div>
                         <div class="form-row">
-                            <label>Certitude : </label>
+                            <label>Certitude(%) : </label>
                             <label id="sidebar_certitude_label" value="">0 %</label>
                         </div>
                         <div class="form-row">
@@ -239,11 +239,7 @@
                         </div>
                         <div class="form-row">    
                             <label>Pression systolique: </label>
-                            <label id="data_systolique"></label>
-                        </div>
-                        <div class="form-row">    
-                            <label>Pression diastolique: </label>
-                            <label id="data_diastolique"></label>
+                            <label id="data_pressure"></label>
                         </div>
                         <div class="form-row">   
                             <label>Respiration: </label>
@@ -252,10 +248,6 @@
                         <div class="form-row">    
                             <label>Perspiration: </label>
                             <label id="data_perspiration"></label>
-                        </div>
-                        <div class="form-row">   
-                            <label>Mensonge: </label>
-                            <label id="data_mensonge"></label>
                         </div>
                     </div>
                 </div>

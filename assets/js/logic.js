@@ -56,11 +56,6 @@ fetch("https://localhost:44318/api/PolyBUSAPI", {method: 'GET', mode:'cors'})
 //   { idSuspect: 'Four', name: 'Orloge', lastName: 'Simard'},
 // ];
 
-
-
-
-
-
 //-------------------------------------------------------------------------------------------------------------------------------
 // Gestion du demarrage de la simulation
 var simulationState = 0;

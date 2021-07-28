@@ -1,23 +1,41 @@
 //-------------------------------------------------------------------------------------------------------------------------------
 // Gestion des info du suspect
-
+var idSupsect;
 var selectSuspect = document.getElementById("selectSuspect");
-selectSuspect.onselect = function() {
-    console.log("function");
-    id = selectSuspect.value;
-    const suspect = [];
-    fetch("URL pour get by ID", {method: 'GET', mode:'cors'}) 
+selectSuspect.onchange = function() {
+    caseNumber = selectSuspect.value;
+    fetch("https://localhost:44318/api/PolyBUSAPI/case?caseNumber=" + caseNumber, {method: 'GET', mode:'cors'}) 
       .then(blob => blob.json())
-      .then(data => suspect.push(...data))
-    
-    document.getElementById("sidebar_suspect_first_name_label").innerHTML = suspect.name
-    document.getElementById("sidebar_suspect_last_name_label").innerHTML = suspect.lastname
-    document.getElementById("sidebar_suspect_birthdate_label").innerHTML = suspect.birthdate
-    document.getElementById("sidebar_suspect_number_label").innerHTML = suspect.caseNumber
-    document.getElementById("sidebar_suspect_gender_label").innerHTML = suspect.gender
+      .then(data => {
+        idSupsect = data.id
+        console.log(idSupsect);
+        document.getElementById("sidebar_suspect_first_name_label").innerHTML = data.name;
+        document.getElementById("sidebar_suspect_last_name_label").innerHTML = data.lastName
+        document.getElementById("sidebar_suspect_birthdate_label").innerHTML = data.birthdate;
+        document.getElementById("sidebar_suspect_number_label").innerHTML = data.caseNumber
+        document.getElementById("sidebar_suspect_gender_label").innerHTML = data.gender;
+      });
 }
+// --------------------------------------------------------------------------------------------------------------------
+//
+var boutonSave = document.getElementById("saveBtn");
+boutonSave.onclick = async function(){
+    var id = idSupsect;
+    var freq = document.getElementById("sidebar_bpm_label").innerHTML;
+    var pressure = document.getElementById("sidebar_pressure_label").innerHTML;
+    var respi = document.getElementById("sidebar_respiration_label").innerHTML;
+    var perspi = document.getElementById("sidebar_perspiration_label").innerHTML;
 
-//-------------------------------------------------------------------------------------------------------------------------------
+    // format the data
+    const data = {Pulse: freq, Systolic: pressure, Diastolic: 0, Respiration: respi, Perspiration: perspi, IdSuspect: idSupsect};
+    console.log(data)
+
+    await fetch("https://localhost:44318/api/PolyBUSAPI/CreateData/",{ method: 'POST', headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }, mode:'cors', body: JSON.stringify(data)});
+}
+//---------------------------------------------------------------------------------------------------------------------
 // Gestion du demarrage de la simulation
 var simulationState = 0;
 
@@ -34,7 +52,7 @@ stopBtn.onclick = function() {
     console.log(simulationState);
 };
 
-// ================================================================
+// --------------------------------------------------------------------------------------------------------------------
 // Gestion du signal de respiration
 const RespirationSelect = {
     respi025 : 0,
@@ -76,7 +94,7 @@ function sendRespirationSelect(selection) {
     http.send();
 }
 
-// ================================================================
+// --------------------------------------------------------------------------------------------------------------------
 //Choix de la perspiration
 const PerspirationSelect = {
     level1 : 0,
@@ -140,19 +158,42 @@ function updateAllParameters() {
         http.onreadystatechange = function() {
             if (http.readyState == 4 && http.status == 200 && http.responseText) {
                 parameters_obj = JSON.parse(http.responseText);
-        
-                bpm_label.innerHTML = parameters_obj.bpm + " BPM";
-                respiration_label.innerHTML = parameters_obj.respiration + " Hz";
-                pressure_label.innerHTML = parameters_obj.bloodPressure + " mmHg";
-                perspiration_label.innerHTML = parameters_obj.perspiration + " V";
-                certitude_label.innerHTML = parameters_obj.certitude + " %";
+                console.log(parameters_obj.bloodPressure);
+                bpm_label.innerHTML = parameters_obj.bpm;
+                respiration_label.innerHTML = parameters_obj.respiration;
+                pressure_label.innerHTML = parameters_obj.bloodPressure;
+                perspiration_label.innerHTML = parameters_obj.perspiration;
+                certitude_label.innerHTML = parameters_obj.certitude;
             }
         }
     }
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------
+// 
+var dataSuspect = document.getElementById("dataHistorique")
+dataSuspect.onclick = function () {
+    console.log("test");
+    var selectSuspect = document.getElementById("selectSuspect");
+    var caseNumber = selectSuspect.value;
+    var name = document.getElementById("sidebar_suspect_first_name_label").innerHTML;
+    var lname = document.getElementById("sidebar_suspect_last_name_label").innerHTML;
+    var casenumber = document.getElementById("sidebar_suspect_number_label").innerHTML
+    fetch("https://localhost:44318/api/PolyBUSAPI/caseNumber?caseNumber="+ caseNumber, {method: 'GET', mode:'cors'}) 
+      .then(blob => blob.json())
+      .then(data => {
+        console.log(data)
+        document.getElementById("data_fname").innerHTML = name;
+        document.getElementById("data_lname").innerHTML = lname;
+        document.getElementById("data_caseNum").innerHTML = casenumber;
+        document.getElementById("data_cardiaque").innerHTML = data.pulse;
+        document.getElementById("data_pressure").innerHTML = data.systolic;
+        document.getElementById("data_respiration").innerHTML = data.respiration;
+        document.getElementById("data_perspiration").innerHTML = data.perspiration;
+      })
+}
+
 function setInfoSuspect(caseNumber) {
-    console.log("Allo les tchoins!")
     fetch("https://localhost:44318/api/PolyBUSAPI/caseNumber?caseNumber=" + caseNumber, {method: 'GET', mode:'cors'}) 
         .then(blob => blob.json())
         .then(data => {
