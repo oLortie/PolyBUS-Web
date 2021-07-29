@@ -14,6 +14,7 @@ selectSuspect.onchange = function() {
         document.getElementById("sidebar_suspect_birthdate_label").innerHTML = data.birthdate;
         document.getElementById("sidebar_suspect_number_label").innerHTML = data.caseNumber
         document.getElementById("sidebar_suspect_gender_label").innerHTML = data.gender;
+        console.log(JSON.stringify(data));
       });
 }
 // --------------------------------------------------------------------------------------------------------------------
@@ -27,7 +28,7 @@ boutonSave.onclick = async function(){
     var perspi = document.getElementById("sidebar_perspiration_label").innerHTML;
 
     // format the data
-    const data = {Pulse: freq, Systolic: pressure, Diastolic: 0, Respiration: respi, Perspiration: perspi, IdSuspect: idSupsect};
+    const data = {Pulse: parseFloat(freq), Systolic: parseFloat(pressure), Diastolic: 0, Respiration: parseFloat(respi), Perspiration: parseFloat(perspi), IdSuspect: idSupsect};
     console.log(data)
 
     await fetch("https://localhost:44318/api/PolyBUSAPI/CreateData/",{ method: 'POST', headers: {
@@ -182,7 +183,6 @@ dataSuspect.onclick = function () {
     fetch("https://localhost:44318/api/PolyBUSAPI/caseNumber?caseNumber="+ caseNumber, {method: 'GET', mode:'cors'}) 
       .then(blob => blob.json())
       .then(data => {
-        console.log(data)
         document.getElementById("data_fname").innerHTML = name;
         document.getElementById("data_lname").innerHTML = lname;
         document.getElementById("data_caseNum").innerHTML = casenumber;
@@ -190,6 +190,7 @@ dataSuspect.onclick = function () {
         document.getElementById("data_pressure").innerHTML = data.systolic;
         document.getElementById("data_respiration").innerHTML = data.respiration;
         document.getElementById("data_perspiration").innerHTML = data.perspiration;
+        console.log(data)
       })
 }
 
